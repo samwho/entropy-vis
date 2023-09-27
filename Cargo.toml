@@ -1,0 +1,29 @@
+[package]
+name = "entropy-vis"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Sam Rose <hello@samwho.dev>"]
+keywords = ["cli"]
+categories = ["command-line-utilities"]
+repository = "https://github.com/samwho/entropy"
+description = "A CLI utility for visualising the entropy of a file."
+include = ["Cargo.toml", "LICENSE", "README.md", "**/*.rs"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[badges]
+maintenance = { status = "passively-maintained" }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+[dependencies]
+termion = "2"
+structopt = "0.3"
+anyhow = "1"
+human-panic = "1"
+env_logger = "0.10"
+log = "0.4"
