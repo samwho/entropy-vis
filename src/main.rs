@@ -65,7 +65,7 @@ fn main() -> Result<(), Error> {
 
     debug!("grid width: {}, height: {}", grid_width, grid_height);
 
-    let chunk_size = max(1, file_size / (grid_width * grid_height) as u64);
+    let chunk_size = max(1, file_size / (grid_width * grid_height));
 
     debug!(
         "chunk size: {} ({} / {})",
@@ -76,7 +76,7 @@ fn main() -> Result<(), Error> {
 
     let mut stdout = stdout().lock();
 
-    let mut sum = 0;
+    let mut sum: u64 = 0;
     let mut count = 0;
     let mut total_chunks = 0;
     let mut buf = [0; 8096];
@@ -87,9 +87,8 @@ fn main() -> Result<(), Error> {
             break;
         }
 
-        for i in 0..bytes_read {
-            let byte = buf[i];
-            sum += byte as u64;
+        for byte in buf.iter().take(bytes_read) {
+            sum += *byte as u64;
             count += 1;
 
             if count == chunk_size {
